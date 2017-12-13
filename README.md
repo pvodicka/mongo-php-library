@@ -1,3 +1,6 @@
+Modified to use static server property for selected server to override subsequent server selection during same script execution.
+Not recomended for production enviroment!
+
 MongoDB library for PHP
 =======================
 
