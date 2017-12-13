@@ -1,6 +1,6 @@
 {
     "name": "pvodicka/mongo-php-library",
-    "description": "MongoDB driver library",
+    "description": "MongoDB PHP library ( modified to use static property for selected server )",
     "keywords": ["database", "driver", "mongodb", "persistence"],
     "homepage": "https://jira.mongodb.org/browse/PHPLIB",
     "license": "Apache-2.0",
