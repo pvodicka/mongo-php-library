@@ -71,6 +71,7 @@ class Collection
     private $readPreference;
     private $typeMap;
     private $writeConcern;
+    private static $server;
 
     /**
      * Constructs new Collection instance.
@@ -514,9 +515,11 @@ class Collection
             $options['readPreference'] = $this->readPreference;
         }
 
-        $server = $this->manager->selectServer($options['readPreference']);
-
-        if ( ! isset($options['readConcern']) && \MongoDB\server_supports_feature($server, self::$wireVersionForReadConcern)) {
+        if( self::$server === null ) {
+            self::$server = $this->manager->selectServer($options['readPreference']);
+        }
+        
+        if ( ! isset($options['readConcern']) && \MongoDB\server_supports_feature(self::$server, self::$wireVersionForReadConcern)) {
             $options['readConcern'] = $this->readConcern;
         }
 
@@ -526,7 +529,7 @@ class Collection
 
         $operation = new Find($this->databaseName, $this->collectionName, $filter, $options);
 
-        return $operation->execute($server);
+        return $operation->execute(self::$server);
     }
 
     /**
